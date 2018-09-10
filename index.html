@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="style2.css">
-<!--jQueryƒ‰ƒCƒuƒ‰ƒŠ“Ç‚İ‚İ-->
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<!--Googleƒ}ƒbƒv¶¬-->
+<!--Googleãƒãƒƒãƒ—ç”Ÿæˆ-->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzA5BJebLXs2f5_raxVC8xcri5crR8khY&region=JP&language=ja"></script>
 <script type="text/javascript">
-//ƒ}ƒbƒvƒIƒuƒWƒFƒNƒgİ’è
+//ãƒãƒƒãƒ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè¨­å®š
 var mapObj;
-//‹æ–ğŠ‚ğˆÜ“xEŒy“x‚Ì‰Šú’l‚Éİ’è
-var kuname="‘åãs";
-var kuyakusyo=kuname+"–ğŠ";
+//åŒºå½¹æ‰€ã‚’ç·¯åº¦ãƒ»è»½åº¦ã®åˆæœŸå€¤ã«è¨­å®š
+var kuname="å¤§é˜ªå¸‚";
+var kuyakusyo=kuname+"å½¹æ‰€";
 var posX=34.694062;
 var posY=135.502154;
-//¶‚Ì‰€ƒŠƒXƒg‚ğƒNƒŠƒbƒN‚µ‚½Û‚ÉA’n}ã‚Éw‚µ¦‚·ƒ}[ƒJ[‚ğƒOƒ[ƒoƒ‹•Ï”‚Åİ’è
-var marker2; //marker‚Í‰€‚ÌƒAƒCƒRƒ“‚Ég—p‚µ‚Ä‚¢‚é‚½‚ßA‚ ‚¦‚Ä2‚É‚µ‚Ä‚¢‚é
+//å·¦ã®åœ’ãƒªã‚¹ãƒˆã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸéš›ã«ã€åœ°å›³ä¸Šã«æŒ‡ã—ç¤ºã™ãƒãƒ¼ã‚«ãƒ¼ã‚’ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°ã§è¨­å®š
+var marker2; //markerã¯åœ’ã®ã‚¢ã‚¤ã‚³ãƒ³ã«ä½¿ç”¨ã—ã¦ã„ã‚‹ãŸã‚ã€ã‚ãˆã¦2ã«ã—ã¦ã„ã‚‹
 var marker2posy=posY;
 var marker2posx=posX;
-//ƒ}ƒbƒvì¬
+//ãƒãƒƒãƒ—ä½œæˆ
 google.maps.event.addDomListener(window, 'load', function(){
-	//‰Šúİ’è
+	//åˆæœŸè¨­å®š
 	var map = document.getElementById("map_canvas");
 	var options = {
 		zoom: 15,
@@ -32,11 +30,11 @@ google.maps.event.addDomListener(window, 'load', function(){
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	mapObj = new google.maps.Map(map, options);
-	//‹æ–ğŠ‚ğ’†S‚Éİ’è
+	//åŒºå½¹æ‰€ã‚’ä¸­å¿ƒã«è¨­å®š
 	var pos = new google.maps.LatLng(posY, posX);
 	var infowindow = new google.maps.InfoWindow({ map: mapObj, position: pos, content: kuyakusyo});
 	mapObj.setCenter(pos);
-	//•ÛˆçŠCSVƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	//ä¿è‚²æ‰€CSVãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 	var xhr = new XMLHttpRequest();
 	xhr.onload = function(){
 		var tempArray = xhr.responseText.split("\n");
@@ -45,23 +43,23 @@ google.maps.event.addDomListener(window, 'load', function(){
 		for(var i=0;i<tempArray.length;i++){
 			csvArray[i] = tempArray[i].split(",");
 			var data = csvArray[i];
-			//ƒ}[ƒJ[ì¬@‰æ‘œƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ
+			//ãƒãƒ¼ã‚«ãƒ¼ä½œæˆã€€ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿
 			var image = 'icon32x320.png'
 			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng( parseFloat(data[0]), parseFloat(data[1]) ),
 				map: mapObj,
 				icon: image,
 			});
-			//csvƒtƒ@ƒCƒ‹
-			attachMessage(marker, data[2], data[3]);
+			//csvãƒ•ã‚¡ã‚¤ãƒ«
+			//attachMessage(marker, data[2], data[3]);
 		}
 	};
 	xhr.open("get", "exif_master.csv", true);
 	xhr.send(null);
 
-	//zoom_changeƒCƒxƒ“ƒgæ“¾
+	//zoom_changeã‚¤ãƒ™ãƒ³ãƒˆå–å¾—
 	google.maps.event.addListener(mapObj, 'zoom_changed', function(){
-		var offsety; //ƒ}[ƒJ[Œo“x’²®
+		var offsety; //ãƒãƒ¼ã‚«ãƒ¼çµŒåº¦èª¿æ•´
 		var zoom = mapObj.getZoom();
 		if (zoom<16) { offsety=0.001;   }
 		if (zoom==16){ offsety=0.0005;  }
@@ -79,33 +77,33 @@ google.maps.event.addDomListener(window, 'load', function(){
 	});
 });
 
-//“Ç‚İ‚ñ‚¾csv‚©‚çinfowindow‚Æ¶‘¤‚É•\¦‚·‚é{İHTML¶¬
+//èª­ã¿è¾¼ã‚“ã csvã‹ã‚‰infowindowã¨å·¦å´ã«è¡¨ç¤ºã™ã‚‹æ–½è¨­HTMLç”Ÿæˆ
 function attachMessage(getmarker, time, picture) {
-	//Infowindow¶¬
+	//Infowindowç”Ÿæˆ
 	var path;
-	//Ê^‚ª‚È‚¢ê‡‚ÍA‰½‚à•\¦‚µ‚È‚¢BÅŒã‚Ìƒf[ƒ^‚È‚Ì‚ÅAWindows‚Åcsvì¬‚µ‚½ê‡‚Í‰üsƒR[ƒh‚ªc‚Á‚Ä‚¢‚é‚Æ”»’f‚³‚ê‚Ä‚±‚±‚ªÀs‚³‚ê‚È‚¢‚Ì‚ÅLF‚É•ÏX‚·‚é‚±‚Æ
+	//å†™çœŸãŒãªã„å ´åˆã¯ã€ä½•ã‚‚è¡¨ç¤ºã—ãªã„ã€‚æœ€å¾Œã®ãƒ‡ãƒ¼ã‚¿ãªã®ã§ã€Windowsã§csvä½œæˆã—ãŸå ´åˆã¯æ”¹è¡Œã‚³ãƒ¼ãƒ‰ãŒæ®‹ã£ã¦ã„ã‚‹ã¨åˆ¤æ–­ã•ã‚Œã¦ã“ã“ãŒå®Ÿè¡Œã•ã‚Œãªã„ã®ã§LFã«å¤‰æ›´ã™ã‚‹ã“ã¨
 	if (picture=="") {
 		path="";
 	} else {
 		path='<img src=pictures/'+picture+'></br>';
 	}
-	var infowin = new google.maps.InfoWindow({ content:"B‰e“úF"+time+"</br>"+"Ê^ƒf[ƒ^"+path+"</br>"});
+	var infowin = new google.maps.InfoWindow({ content:"æ’®å½±æ—¥æ™‚ï¼š"+time+"</br>"+"å†™çœŸãƒ‡ãƒ¼ã‚¿"+path+"</br>"});
 
-	//ƒ}ƒEƒXƒI[ƒo[
+	//ãƒã‚¦ã‚¹ã‚ªãƒ¼ãƒãƒ¼
 	google.maps.event.addListener(getmarker, 'mouseover', function() {
 		infowin.open(getmarker.getMap(), getmarker);
 	});
-	//ƒ}ƒEƒXƒAƒEƒg
+	//ãƒã‚¦ã‚¹ã‚¢ã‚¦ãƒˆ
 	google.maps.event.addListener(getmarker, 'mouseout', function(){
 		infowin.close();
 	});
-	//ƒNƒŠƒbƒN‚ÅƒŠƒ“ƒNæ‚Ö‘JˆÚ
-	/*ƒXƒ}ƒz‚Åƒ^ƒbƒ`‚·‚é‚Æ‚·‚®‚É{İHP‚ÖƒWƒƒƒ“ƒv‚µ‚Ä‚µ‚Ü‚¤‚½‚ßAŒ‹‹ÇA–³Œø‰»‚µ‚Ä‚¢‚é
+	//ã‚¯ãƒªãƒƒã‚¯ã§ãƒªãƒ³ã‚¯å…ˆã¸é·ç§»
+	/*ã‚¹ãƒãƒ›ã§ã‚¿ãƒƒãƒã™ã‚‹ã¨ã™ãã«æ–½è¨­HPã¸ã‚¸ãƒ£ãƒ³ãƒ—ã—ã¦ã—ã¾ã†ãŸã‚ã€çµå±€ã€ç„¡åŠ¹åŒ–ã—ã¦ã„ã‚‹
 	google.maps.event.addListener(getmarker, 'click', function(){
 		window.open(url);
 	});
 	*/
-	//ƒ_ƒuƒ‹ƒNƒŠƒbƒN‚ÅƒŠƒ“ƒNæ‚Ö‘JˆÚ
+	//ãƒ€ãƒ–ãƒ«ã‚¯ãƒªãƒƒã‚¯ã§ãƒªãƒ³ã‚¯å…ˆã¸é·ç§»
 	google.maps.event.addListener(getmarker, 'dblclick', function(){
 		window.open(url);
 	});
