@@ -79,9 +79,11 @@ function attachMessage(getmarker, time, filename) {
 		infowin.open(getmarker.getMap(), getmarker);
 	});
 	//マウスアウト
+	/*
 	google.maps.event.addListener(getmarker, 'mouseout', function(){
 		infowin.close();
 	});
+	*/
 	/*
 	//クリックでリンク先へ遷移 スマホでタッチするとすぐに施設HPへジャンプしてしまうため、結局、無効化している
 	google.maps.event.addListener(getmarker, 'click', function(){
