@@ -46,7 +46,7 @@ google.maps.event.addDomListener(window, 'load', function(){
 			csvArray[i] = tempArray[i].split(",");
 			var data = csvArray[i];
 			//マーカー作成　画像ファイルを読み込み
-			var image = 'ucib32x320.png'
+			var image = 'icon32x320.png'
 			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng( parseFloat(data[0]), parseFloat(data[1]) ),
 				map: mapObj,
@@ -87,7 +87,7 @@ function attachMessage(getmarker, time, picture) {
 	if (picture=="") {
 		path="";
 	} else {
-		path='<img src=image/'+picture+'></br>';
+		path='<img src=pictures/'+picture+'></br>';
 	}
 	var infowin = new google.maps.InfoWindow({ content:"撮影日時："+time+"</br>"+"写真データ"+path+"</br>"});
 
