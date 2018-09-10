@@ -55,7 +55,7 @@ google.maps.event.addDomListener(window, 'load', function(){
 			//グローバル保存
 			markerArray.push(marker);
 			//csvファイル　data[2]:GPSDateTime
-			attachMessage(marker, data[2]);
+			attachMessage(marker, data[2], data[3]);
 		}
 		//console.log(csvArray);
 	};
