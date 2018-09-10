@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no" />
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style2.css">
+<!--jQueryライブラリ読み込み-->
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!--Googleマップ生成-->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDzA5BJebLXs2f5_raxVC8xcri5crR8khY&region=JP&language=ja"></script>
+<script type="text/javascript">
+//マップオブジェクト設定
+var mapObj;
+//区役所を緯度・軽度の初期値に設定
+var kuname="大阪市";
+var kuyakusyo=kuname+"役所";
+var posX=34.694062;
+var posY=135.502154;
+//左の園リストをクリックした際に、地図上に指し示すマーカーをグローバル変数で設定
+var marker2; //markerは園のアイコンに使用しているため、あえて2にしている
+var marker2posy=posY;
+var marker2posx=posX;
+//マップ作成
+google.maps.event.addDomListener(window, 'load', function(){
+	//初期設定
+	var map = document.getElementById("map_canvas");
+	var options = {
+		zoom: 15,
+		center: new google.maps.LatLng(posY, posX),
+		mapTypeControl: false,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	mapObj = new google.maps.Map(map, options);
+	//区役所を中心に設定
+	var pos = new google.maps.LatLng(posY, posX);
+	var infowindow = new google.maps.InfoWindow({ map: mapObj, position: pos, content: kuyakusyo});
+	mapObj.setCenter(pos);
+	//保育所CSVファイル読み込み
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function(){
+		var tempArray = xhr.responseText.split("\n");
+		//
+		csvArray = new Array();
+		for(var i=0;i<tempArray.length;i++){
+			csvArray[i] = tempArray[i].split(",");
+			var data = csvArray[i];
+			//マーカー作成　画像ファイルを読み込み
+			var image = 'ucib32x320.png'
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng( parseFloat(data[0]), parseFloat(data[1]) ),
+				map: mapObj,
+				icon: image,
+			});
+			//csvファイル
+			attachMessage(marker, data[2], data[3]);
+		}
+	};
+	xhr.open("get", "exif_master.csv", true);
+	xhr.send(null);
+
+	//zoom_changeイベント取得
+	google.maps.event.addListener(mapObj, 'zoom_changed', function(){
+		var offsety; //マーカー経度調整
+		var zoom = mapObj.getZoom();
+		if (zoom<16) { offsety=0.001;   }
+		if (zoom==16){ offsety=0.0005;  }
+		if (zoom==17){ offsety=0.00025; }
+		if (zoom==18){ offsety=0.00015; }
+		if (zoom==19){ offsety=0.00008; }
+		if (zoom==20){ offsety=0.00004; }
+		if (zoom>20) { offsety=0.00002; }
+		var pos = new google.maps.LatLng(marker2posy+offsety, marker2posx);
+		if (marker2==null){
+			marker2 = new google.maps.Marker({ position: pos, map:mapObj });
+		} else {
+			marker2.setPosition(pos);
+		}
+	});
+});
+
+//読み込んだcsvからinfowindowと左側に表示する施設HTML生成
+function attachMessage(getmarker, time, picture) {
+	//Infowindow生成
+	var path;
+	//写真がない場合は、何も表示しない。最後のデータなので、Windowsでcsv作成した場合は改行コードが残っていると判断されてここが実行されないのでLFに変更すること
+	if (picture=="") {
+		path="";
+	} else {
+		path='<img src=image/'+picture+'></br>';
+	}
+	var infowin = new google.maps.InfoWindow({ content:"撮影日時："+time+"</br>"+"写真データ"+path+"</br>"});
+
+	//マウスオーバー
+	google.maps.event.addListener(getmarker, 'mouseover', function() {
+		infowin.open(getmarker.getMap(), getmarker);
+	});
+	//マウスアウト
+	google.maps.event.addListener(getmarker, 'mouseout', function(){
+		infowin.close();
+	});
+	//クリックでリンク先へ遷移
+	/*スマホでタッチするとすぐに施設HPへジャンプしてしまうため、結局、無効化している
+	google.maps.event.addListener(getmarker, 'click', function(){
+		window.open(url);
+	});
+	*/
+	//ダブルクリックでリンク先へ遷移
+	google.maps.event.addListener(getmarker, 'dblclick', function(){
+		window.open(url);
+	});
+}
+</script>
+</head>
+<body>
+<div id="map_container">
+	<div id="map_canvas"></div>
+</div>
+</body>
+</html>
