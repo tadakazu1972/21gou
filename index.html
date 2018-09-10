@@ -5,23 +5,23 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="style2.css">
-<!--Googleマップ生成-->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzA5BJebLXs2f5_raxVC8xcri5crR8khY&region=JP&language=ja"></script>
+<!--Google繝槭ャ繝礼函謌�-->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5ZVvKxwqjahjdQuyKVodbU4O58Mcg0ec&region=JP&language=ja"></script>
 <script type="text/javascript">
-//マップオブジェクト設定
+//繝槭ャ繝励が繝悶ず繧ｧ繧ｯ繝郁ｨｭ螳�
 var mapObj;
-//区役所を緯度・軽度の初期値に設定
-var kuname="大阪市";
-var kuyakusyo=kuname+"役所";
+//蛹ｺ蠖ｹ謇�繧堤ｷｯ蠎ｦ繝ｻ霆ｽ蠎ｦ縺ｮ蛻晄悄蛟､縺ｫ險ｭ螳�
+var kuname="螟ｧ髦ｪ蟶�";
+var kuyakusyo=kuname+"蠖ｹ謇�";
 var posX=34.694062;
 var posY=135.502154;
-//左の園リストをクリックした際に、地図上に指し示すマーカーをグローバル変数で設定
-var marker2; //markerは園のアイコンに使用しているため、あえて2にしている
+//蟾ｦ縺ｮ蝨偵Μ繧ｹ繝医ｒ繧ｯ繝ｪ繝�繧ｯ縺励◆髫帙↓縲∝慍蝗ｳ荳翫↓謖�縺礼､ｺ縺吶�槭�ｼ繧ｫ繝ｼ繧偵げ繝ｭ繝ｼ繝舌Ν螟画焚縺ｧ險ｭ螳�
+var marker2; //marker縺ｯ蝨偵�ｮ繧｢繧､繧ｳ繝ｳ縺ｫ菴ｿ逕ｨ縺励※縺�繧九◆繧√�√≠縺医※2縺ｫ縺励※縺�繧�
 var marker2posy=posY;
 var marker2posx=posX;
-//マップ作成
+//繝槭ャ繝嶺ｽ懈��
 google.maps.event.addDomListener(window, 'load', function(){
-	//初期設定
+	//蛻晄悄險ｭ螳�
 	var map = document.getElementById("map_canvas");
 	var options = {
 		zoom: 15,
@@ -30,11 +30,11 @@ google.maps.event.addDomListener(window, 'load', function(){
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	mapObj = new google.maps.Map(map, options);
-	//区役所を中心に設定
+	//蛹ｺ蠖ｹ謇�繧剃ｸｭ蠢�縺ｫ險ｭ螳�
 	var pos = new google.maps.LatLng(posY, posX);
 	var infowindow = new google.maps.InfoWindow({ map: mapObj, position: pos, content: kuyakusyo});
 	mapObj.setCenter(pos);
-	//保育所CSVファイル読み込み
+	//菫晁ご謇�CSV繝輔ぃ繧､繝ｫ隱ｭ縺ｿ霎ｼ縺ｿ
 	var xhr = new XMLHttpRequest();
 	xhr.onload = function(){
 		var tempArray = xhr.responseText.split("\n");
@@ -43,23 +43,23 @@ google.maps.event.addDomListener(window, 'load', function(){
 		for(var i=0;i<tempArray.length;i++){
 			csvArray[i] = tempArray[i].split(",");
 			var data = csvArray[i];
-			//マーカー作成　画像ファイルを読み込み
+			//繝槭�ｼ繧ｫ繝ｼ菴懈�舌��逕ｻ蜒上ヵ繧｡繧､繝ｫ繧定ｪｭ縺ｿ霎ｼ縺ｿ
 			var image = 'icon32x320.png'
 			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng( parseFloat(data[0]), parseFloat(data[1]) ),
 				map: mapObj,
 				icon: image,
 			});
-			//csvファイル
+			//csv繝輔ぃ繧､繝ｫ
 			//attachMessage(marker, data[2], data[3]);
 		}
 	};
 	xhr.open("get", "exif_master.csv", true);
 	xhr.send(null);
 
-	//zoom_changeイベント取得
+	//zoom_change繧､繝吶Φ繝亥叙蠕�
 	google.maps.event.addListener(mapObj, 'zoom_changed', function(){
-		var offsety; //マーカー経度調整
+		var offsety; //繝槭�ｼ繧ｫ繝ｼ邨悟ｺｦ隱ｿ謨ｴ
 		var zoom = mapObj.getZoom();
 		if (zoom<16) { offsety=0.001;   }
 		if (zoom==16){ offsety=0.0005;  }
@@ -77,33 +77,33 @@ google.maps.event.addDomListener(window, 'load', function(){
 	});
 });
 
-//読み込んだcsvからinfowindowと左側に表示する施設HTML生成
+//隱ｭ縺ｿ霎ｼ繧薙□csv縺九ｉinfowindow縺ｨ蟾ｦ蛛ｴ縺ｫ陦ｨ遉ｺ縺吶ｋ譁ｽ險ｭHTML逕滓��
 function attachMessage(getmarker, time, picture) {
-	//Infowindow生成
+	//Infowindow逕滓��
 	var path;
-	//写真がない場合は、何も表示しない。最後のデータなので、Windowsでcsv作成した場合は改行コードが残っていると判断されてここが実行されないのでLFに変更すること
+	//蜀咏悄縺後↑縺�蝣ｴ蜷医�ｯ縲∽ｽ輔ｂ陦ｨ遉ｺ縺励↑縺�縲よ怙蠕後�ｮ繝�繝ｼ繧ｿ縺ｪ縺ｮ縺ｧ縲仝indows縺ｧcsv菴懈�舌＠縺溷�ｴ蜷医�ｯ謾ｹ陦後さ繝ｼ繝峨′谿九▲縺ｦ縺�繧九→蛻､譁ｭ縺輔ｌ縺ｦ縺薙％縺悟ｮ溯｡後＆繧後↑縺�縺ｮ縺ｧLF縺ｫ螟画峩縺吶ｋ縺薙→
 	if (picture=="") {
 		path="";
 	} else {
 		path='<img src=pictures/'+picture+'></br>';
 	}
-	var infowin = new google.maps.InfoWindow({ content:"撮影日時："+time+"</br>"+"写真データ"+path+"</br>"});
+	var infowin = new google.maps.InfoWindow({ content:"謦ｮ蠖ｱ譌･譎ゑｼ�"+time+"</br>"+"蜀咏悄繝�繝ｼ繧ｿ"+path+"</br>"});
 
-	//マウスオーバー
+	//繝槭え繧ｹ繧ｪ繝ｼ繝舌�ｼ
 	google.maps.event.addListener(getmarker, 'mouseover', function() {
 		infowin.open(getmarker.getMap(), getmarker);
 	});
-	//マウスアウト
+	//繝槭え繧ｹ繧｢繧ｦ繝�
 	google.maps.event.addListener(getmarker, 'mouseout', function(){
 		infowin.close();
 	});
-	//クリックでリンク先へ遷移
-	/*スマホでタッチするとすぐに施設HPへジャンプしてしまうため、結局、無効化している
+	//繧ｯ繝ｪ繝�繧ｯ縺ｧ繝ｪ繝ｳ繧ｯ蜈医∈驕ｷ遘ｻ
+	/*繧ｹ繝槭�帙〒繧ｿ繝�繝√☆繧九→縺吶＄縺ｫ譁ｽ險ｭHP縺ｸ繧ｸ繝｣繝ｳ繝励＠縺ｦ縺励∪縺�縺溘ａ縲∫ｵ仙ｱ�縲∫┌蜉ｹ蛹悶＠縺ｦ縺�繧�
 	google.maps.event.addListener(getmarker, 'click', function(){
 		window.open(url);
 	});
 	*/
-	//ダブルクリックでリンク先へ遷移
+	//繝�繝悶Ν繧ｯ繝ｪ繝�繧ｯ縺ｧ繝ｪ繝ｳ繧ｯ蜈医∈驕ｷ遘ｻ
 	google.maps.event.addListener(getmarker, 'dblclick', function(){
 		window.open(url);
 	});
