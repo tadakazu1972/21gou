@@ -68,8 +68,8 @@ google.maps.event.addDomListener(window, 'load', function(){
 			});
 			//グローバル保存
 			markerArray.push(marker);
-			//csvファイル　保育所名:data[2] 住所:data[4] 電話:data[7] URL:data[8] 0歳:data[10] 1歳:data[11] 2歳:data[12] 3歳:data[13] 4歳:data[14] 5歳:data[15] 現在月:data[16] 利用可能月:data[20] カテゴリー:data[9] 指定園:data[17]
-			//attachMessage(marker, data[2], data[4], data[7], data[8], data[10], data[11], data[12], data[13], data[14], data[15], data[16], data[20], data[9], data[17]);
+			//csvファイル　data[2]:GPSDateTime
+			attachMessage(marker, data[2]);
 			//読み込んだデータをhoikusyoクラスに格納
 			//前処理として0歳〜5歳データを[スペース、-,ー]など半角数字、全角数字でない場合0にする。あとのswitch文の判定を円滑にするため。
 			var regexp = new RegExp(/^[0-9０-９]+$/);
@@ -85,39 +85,9 @@ google.maps.event.addDomListener(window, 'load', function(){
 });
 
 //空き状況表示
-function attachMessage(getmarker, name, add, tel, url, zero, one, two, three, four, five, month, month2, category, sitei) {
-	//URLが空白の場合は、何も表示しない。あれば「施設情報」にURLを埋め込む
-	if (url=="") {
-		var urlstr="";
-	} else {
-		var urlstr="<a href="+url+">施設情報</a></br>";
-	}
-	//指定園の場合　施設名の横に追記
-	if (sitei==1){
-		var name2 = name + '【指定園】';
-		var siteistr = "※大阪市要支援児受入促進指定園です。詳しくは、"+"<a href="+"http://www.city.osaka.lg.jp/kodomo/page/0000280259.html"+">「大阪市要支援児受入促進指定園」</a>をご覧ください。";
-	} else {
-		var name2 = name;
-		var siteistr = "";
-	}
-	//認定こども園の場合 "・保育認定分"の文言追記
-	if (category=="認定こども園"){
-		var ninko="・保育認定分";
-	} else {
-		var ninko="";
-	}
+function attachMessage(getmarker, time) {
 	//infowindow生成 スマホの時はinfowindowを小さくするため年齢表示の時に改行をしない。
-	if (width>600){
-		//デスクトップかタブレットの時
-		var infowin = new google.maps.InfoWindow({ content:name2+"</br>"+add+"</br>"+"電話番号："+tel+"</br>"+urlstr+"空き状況（"+month+"月1日現在/"+month2+"月からの途中利用可能数"+ninko+"）</br>"+"0歳児："+zero+"</br>1歳児："+one+"</br>2歳児："+two+"</br>3歳児："+three+"</br>4歳児："+four+"</br>5歳児："+five+"</br>"+siteistr+"</br>"});
-	} else {
-		//スマホの時 幅600ピクセル以下 地域型も３歳〜５歳は表示しない
-		if (category=="地域型"){
-			var infowin = new google.maps.InfoWindow({ content:name2+"</br>"+add+"</br>"+"電話番号："+tel+"</br>"+urlstr+"空き状況（"+month+"月1日現在/"+month2+"月からの途中利用可能数"+ninko+"）</br>"+"【0歳児："+zero+"】【1歳児："+one+"】【2歳児："+two+"】</br>"+siteistr});
-		} else {
-			var infowin = new google.maps.InfoWindow({ content:name2+"</br>"+add+"</br>"+"電話番号："+tel+"</br>"+urlstr+"空き状況（"+month+"月1日現在/"+month2+"月からの途中利用可能数"+ninko+"）</br>"+"【0歳児："+zero+"】【1歳児："+one+"】【2歳児："+two+"】</br>【3歳児："+three+"】【4歳児："+four+"】【5歳児："+five+"】</br>"+siteistr});
-		}
-	}
+	var infowin = new google.maps.InfoWindow({ content:"撮影日時："+time+"</br>"});
 	//マウスオーバー
 	google.maps.event.addListener(getmarker, 'mouseover', function() {
 		infowin.open(getmarker.getMap(), getmarker);
