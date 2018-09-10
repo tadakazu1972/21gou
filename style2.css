@@ -16,7 +16,7 @@
 .accordion1 > li > a {
 　	color: #5555ff;
 	border-bottom:1px solid #eee;
-	padding-bottom:1px; 
+	padding-bottom:1px;
 	background: linear-gradient(transparent 90%, #cbe111 100%);
 }
 .accordion1 > li .content {
@@ -56,7 +56,7 @@
 .accordion2 > li > a {
 　	color: #5555ff;
 	border-bottom:1px solid #eee;
-	padding-bottom:1px; 
+	padding-bottom:1px;
 	background: linear-gradient(transparent 90%, #cbe111 100%);
 }
 .accordion2 > li .content {
@@ -96,7 +96,7 @@
 .accordion3 > li > a {
 　	color: #5555ff;
 	border-bottom:1px solid #eee;
-	padding-bottom:1px; 
+	padding-bottom:1px;
 	background: linear-gradient(transparent 90%, #cbe111 100%);
 }
 .accordion3 > li .content {
@@ -136,7 +136,7 @@
 .accordion4 > li > a {
 　	color: #5555ff;
 	border-bottom:1px solid #eee;
-	padding-bottom:1px; 
+	padding-bottom:1px;
 	background: linear-gradient(transparent 90%, #cbe111 100%);
 }
 .accordion4 > li .content {
@@ -176,7 +176,7 @@
 .accordion5 > li > a {
 　	color: #5555ff;
 	border-bottom:1px solid #eee;
-	padding-bottom:1px; 
+	padding-bottom:1px;
 	background: linear-gradient(transparent 90%, #cbe111 100%);
 }
 .accordion5 > li .content {
@@ -195,46 +195,6 @@
 	border-top: solid 1px #fff;
 }
 .accordion5 > li.expanded > a {
-	color: #0000ff;
-}
-
-/* accordion6 */
-.accordion6 > li {
-	margin: 0 0 5px 0;
-	padding: 2px 2px;
-	border-radius: 5px;
-	background-color: #ededed;
-	background-position: bottom center;
-	background-repeat: no-repeat;
-}
-.accordion6 > li:hover {
-	background-color: #ddd;
-}
-.accordion6 > li > h2 {
-	font-weight: normal;
-}
-.accordion6 > li > a {
-　	color: #5555ff;
-	border-bottom:1px solid #eee;
-	padding-bottom:1px; 
-	background: linear-gradient(transparent 90%, #cbe111 100%);
-}
-.accordion6 > li .content {
-	display: none;
-}
-/* アコーディオンが開いたときのスタイル */
-.accordion6 > li.expanded {
-	background-color: #ddd;
-}
-.accordion6 > li.expanded > h2 {
-	font-weight: bold;
-}
-.accordion6 > li.expanded > h2 {
-	margin: 10px 0 0 0;
-	padding: 10px 0 0 0;
-	border-top: solid 1px #fff;
-}
-.accordion6 > li.expanded > a {
 	color: #0000ff;
 }
 
