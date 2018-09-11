@@ -77,7 +77,7 @@
   		infowin.open(getmarker.getMap(), getmarker);
   	});
     //スマホ　タッチイベント
-    google.maps.event.addlistener(getmarker, 'touchstart', function(){
+    google.maps.event.addListener(getmarker, 'touchstart', function(){
       infowin.open(getmarker.getMap(), getmarker);
     })
   	//マウスアウト
