@@ -73,7 +73,7 @@
         path='<img src=pictures/'+filename+' width="75%" height="75%"></br>';
       } else {
         //スマホの時は小さくなりすぎるので何も設定しない
-        path='<img src=pictures/'+filename+'</br>';
+        path='<img src=pictures/'+filename+'></br>';
       }
 
   	}
