@@ -52,8 +52,8 @@
   			});
   			//グローバル保存
   			markerArray.push(marker);
-  			//csvファイル　data[2]:GPSDateTime, data[3]:File, data[5]:receivetime, data[6]:msgname, data[7]:subject, data[8]:body
-  			attachMessage(marker, data[2], data[3], data[5], data[6], data[7], data[8]);
+  			//csvファイル　data[2]:GPSDateTime, data[3]:File, data[5]:receivetime, data[4]:msgname, data[7]:subject, data[8]:body
+  			attachMessage(marker, data[2], data[3], data[5], data[4], data[7], data[8]);
   		}
   		//console.log(csvArray);
   	};
