@@ -47,7 +47,7 @@
   			var marker = new google.maps.Marker({
   				position: new google.maps.LatLng( parseFloat(data[0]), parseFloat(data[1]) ),
   				map: mapObj,
-  				icon: new google.maps.MarkerImage(image, new google.maps.Size(80,80), new google.maps.Point(0,0), new google.maps.Point(40,40),),
+  				icon: new google.maps.MarkerImage(image, new google.maps.Size(80,80), new google.maps.Point(0,0), new google.maps.Point(0,0),),
   				title: data[4]
   			});
   			//グローバル保存
