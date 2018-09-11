@@ -76,6 +76,10 @@
     google.maps.event.addListener(getmarker, 'mouseover', function() {
     	infowin.open(getmarker.getMap(), getmarker);
     });
+    //クリック
+    google.maps.event.addListener(getmarker, 'click', function() {
+    	infowin.open(getmarker.getMap(), getmarker);
+    });
     //マウスアウト
   	/*
   	google.maps.event.addListener(getmarker, 'mouseout', function(){
