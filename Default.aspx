@@ -121,10 +121,10 @@
 <body>
  <div id="map_canvas"></div>
 
-  <asp:Label ID="Welcome" runat="server" />
+  <!--<asp:Label ID="Welcome" runat="server" />
   <form id="Form1" runat="server">
     <asp:Button ID="Submit1" OnClick="Signout_Click"
        Text="サインアウト" runat="server" /><p>
-  </form>
+  </form>-->
 </body>
 </html>
