@@ -48,11 +48,11 @@
   				position: new google.maps.LatLng( parseFloat(data[0]), parseFloat(data[1]) ),
   				map: mapObj,
   				icon: image,
-  				title: data[2]
+  				title: data[4]
   			});
   			//グローバル保存
   			markerArray.push(marker);
-  			//csvファイル　data[2]:GPSDateTime
+  			//csvファイル　data[2]:GPSDateTime, data[3]:File, data[5]:receivetime, data[7]:subject, data[8]:body
   			attachMessage(marker, data[2], data[3]);
   		}
   		//console.log(csvArray);
@@ -62,7 +62,7 @@
   });
 
   //空き状況表示
-  function attachMessage(getmarker, time, filename) {
+  function attachMessage(getmarker, gpsdatetime, filename, receivetime, subject, body) {
   	//写真画像のファイル名をパスとして表示させる
   	var path;
   	if (filename=="") {
@@ -71,7 +71,7 @@
   		path='<img src=pictures/'+filename+' width="75%" height="75%"></br>';
   	}
   	//infowindow生成
-  	var infowin = new google.maps.InfoWindow({ content:"撮影日時："+time+"</br>"+path});
+  	var infowin = new google.maps.InfoWindow({ content:"ファイル名："+filename+"</br>"+"受信日時："+receivetime+"</br>"+"撮影日時："+gpsdatetime+"</br>"+"件名："+subject+"</br>"+"本文："+body+"</br>"+path});
   	//マウスオーバー
   	google.maps.event.addListener(getmarker, 'mouseover', function() {
   		infowin.open(getmarker.getMap(), getmarker);
