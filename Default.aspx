@@ -12,7 +12,7 @@
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzA5BJebLXs2f5_raxVC8xcri5crR8khY&region=JP&language=ja"></script>
   <script type="text/javascript">
   //スマホの時はinfoWindowの幅がはみ出るのを防ぐ
-  var width = window.innerWidth - 40;
+  var width = window.innerWidth - 60;
   //マップオブジェクト設定
   var mapObj;
   //大阪市役所を緯度・軽度の初期値に設定
@@ -68,7 +68,14 @@
   	if (filename=="") {
   		path="";
   	} else {
-  		path='<img src=pictures/'+filename+' width="75%" height="75%"></br>';
+      //PCの時は画像が大きくなるのを防ぐため75%設定
+      if ( width > 440 ){
+        path='<img src=pictures/'+filename+' width="75%" height="75%"></br>';
+      } else {
+        //スマホの時は小さくなりすぎるので何も設定しない
+        path='<img src=pictures/'+filename+'</br>';
+      }
+
   	}
   	//infowindow生成
   	var infowin = new google.maps.InfoWindow({ content:"ファイル名："+msgname+".msg</br>"+"受信日時："+receivetime+"</br>"+"撮影日時："+gpsdatetime+"</br>"+"件名："+subject+"</br>"+"本文："+body+"</br>"+path, maxWidth: width});
