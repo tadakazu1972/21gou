@@ -52,8 +52,8 @@
   			});
   			//グローバル保存
   			markerArray.push(marker);
-  			//csvファイル　data[2]:GPSDateTime, data[3]:File, data[5]:receivetime, data[7]:subject, data[8]:body
-  			attachMessage(marker, data[2], data[3], data[5], data[7], data[8]);
+  			//csvファイル　data[2]:GPSDateTime, data[3]:File, data[5]:receivetime, data[6]:msgname, data[7]:subject, data[8]:body
+  			attachMessage(marker, data[2], data[3], data[5], data[6], data[7], data[8]);
   		}
   		//console.log(csvArray);
   	};
@@ -62,7 +62,7 @@
   });
 
   //空き状況表示
-  function attachMessage(getmarker, gpsdatetime, filename, receivetime, subject, body) {
+  function attachMessage(getmarker, gpsdatetime, filename, receivetime, msgname, subject, body) {
   	//写真画像のファイル名をパスとして表示させる
   	var path;
   	if (filename=="") {
@@ -71,11 +71,15 @@
   		path='<img src=pictures/'+filename+' width="75%" height="75%"></br>';
   	}
   	//infowindow生成
-  	var infowin = new google.maps.InfoWindow({ content:"ファイル名："+filename+"</br>"+"受信日時："+receivetime+"</br>"+"撮影日時："+gpsdatetime+"</br>"+"件名："+subject+"</br>"+"本文："+body+"</br>"+path});
+  	var infowin = new google.maps.InfoWindow({ content:"ファイル名："+magname+".msg</br>"+"受信日時："+receivetime+"</br>"+"撮影日時："+gpsdatetime+"</br>"+"件名："+subject+"</br>"+"本文："+body+"</br>"+path});
   	//マウスオーバー
   	google.maps.event.addListener(getmarker, 'mouseover', function() {
   		infowin.open(getmarker.getMap(), getmarker);
   	});
+    //スマホ　タッチイベント
+    google.maps.event.addlistener(getmarker, 'touchstart', function(){
+      infowin.open(getmarker.getMap(), getmarker);
+    })
   	//マウスアウト
   	/*
   	google.maps.event.addListener(getmarker, 'mouseout', function(){
