@@ -53,7 +53,7 @@
   			//グローバル保存
   			markerArray.push(marker);
   			//csvファイル　data[2]:GPSDateTime, data[3]:File, data[5]:receivetime, data[7]:subject, data[8]:body
-  			attachMessage(marker, data[2], data[3]);
+  			attachMessage(marker, data[2], data[3], data[5], data[7], data[8]);
   		}
   		//console.log(csvArray);
   	};
