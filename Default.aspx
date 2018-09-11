@@ -9,7 +9,7 @@
   	#map_canvas { height: 100% }
   </style>
   <link rel="stylesheet" href="style.css">
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzA5BJebLXs2f5_raxVC8xcri5crR8khY&region=JP&language=ja"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=****&region=JP&language=ja"></script>
   <script type="text/javascript">
   //スマホの時はinfoWindowの幅がはみ出るのを防ぐ
   var width = window.innerWidth - 60;
