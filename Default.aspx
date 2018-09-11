@@ -101,7 +101,7 @@
   	*/
   	//ダブルクリックでリンク先へ遷移
   	google.maps.event.addListener(getmarker, 'dblclick', function(){
-  		window.open(url);
+  		window.open("pictures/"+filename);
   	});
   }
 
