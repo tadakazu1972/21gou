@@ -72,14 +72,18 @@
   	}
   	//infowindow生成
   	var infowin = new google.maps.InfoWindow({ content:"ファイル名："+msgname+".msg</br>"+"受信日時："+receivetime+"</br>"+"撮影日時："+gpsdatetime+"</br>"+"件名："+subject+"</br>"+"本文："+body+"</br>"+path});
-  	//マウスオーバー
-  	google.maps.event.addListener(getmarker, 'mouseover', function() {
-  		infowin.open(getmarker.getMap(), getmarker);
-  	});
-    //スマホ　タッチイベント
-    google.maps.event.addListener(getmarker, 'touchstart', function(){
-      infowin.open(getmarker.getMap(), getmarker);
-    })
+    //心地よいUIのためにスマホかPCかで処理をわけている
+    if ( width < 600) {
+      //スマホ　タッチイベント
+      google.maps.event.addListener(getmarker, 'touchstart', function(){
+        infowin.open(getmarker.getMap(), getmarker);
+      });
+    } else {
+      //マウスオーバー
+    	google.maps.event.addListener(getmarker, 'mouseover', function() {
+    		infowin.open(getmarker.getMap(), getmarker);
+    	});
+    }
   	//マウスアウト
   	/*
   	google.maps.event.addListener(getmarker, 'mouseout', function(){
